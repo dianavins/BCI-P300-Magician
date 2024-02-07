@@ -73,13 +73,6 @@ CHANNELS = [10, 33, 48, 50, 52, 55, 59, 61]
 5.   Reshape each window to be a 3D tensor with dimensions: **(N_SAMPLES, 78, 8)**;
 6.   Obtain **(noP300 / P300)** class ratio to balance out dataset during training;
 
-
-
-
-
-
-
-
 """
 
 if not os.path.exists(SUBJECT_TRAIN_FILE_PATH):
@@ -347,6 +340,36 @@ def scaled_tanh(z):
     return 1.7159 * K.tanh((2.0 / 3.0) * z)
 
 # Build the model
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# MOST IMPORTANT
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
 def CNN2a_model(channels=8, filters=10):
     model = Sequential([
         Conv1D(
@@ -435,6 +458,34 @@ best_model.load_weights(MODEL_LOCATIONS_FILE_PATH + "/model.h5")
 
 # Compile best model model
 best_model.compile(optimizer = 'adam', loss = 'mean_squared_error', metrics = ['accuracy'])
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 
 # Load topoplot coordinates
 if not os.path.exists(CHANNEL_COORD):

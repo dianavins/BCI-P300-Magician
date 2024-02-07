@@ -9,13 +9,14 @@ Required software:
 HOW TO NAVIGATE THIS REPO:
 
 - Data Collection
-    - DSI_to_Python.py = reads DSI Streamer TCP/IP output into a sequence of integers & floats
+    - DSI_to_Python.py = TCP/IP --> signal_log --> model --> outputs by time interval
     - Training Data
-        - all files of recorded Data
+        - all files of recorded Data that has been turned into signal logs
+        - function that turns recordings into signal_log?
         
 - Models
     - cnn2a.py = neural net initialization and training code
-    - oz-speller.py = main(), runs everything. Puts live data into CNN and outputs which card was chosen
+    - P300-CNNT.py = other neural net example, doesn't include editing training and testing data
     - welcome.md = a fun surprise
 
 - GUI

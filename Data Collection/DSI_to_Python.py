@@ -1,3 +1,10 @@
+# TCP/IP --> signal_log --> model --> model output
+
+
+
+
+
+
 # DSI_to_Python v.1.0 BETA
 # The following script can be used to receive DSI-Streamer Data Packets through DSI-Streamer's TCP/IP Protocol.
 # It contains an example parser for converting packet bytearrays to their corresponding formats described in the TCP/IP Socket Protocol Documentation (https://wearablesensing.com/downloads/TCPIP%20Support_20190924.zip).
@@ -22,7 +29,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import threading
 
-class TCPParser: # The script contains one main class which handles DSI-Streamer data packet parsing.
+# The script contains one main class which handles DSI-Streamer data packet parsing.
+class TCPParser: 
 
 	def __init__(self, host, port):
 		self.host = host
@@ -74,7 +82,7 @@ class TCPParser: # The script contains one main class which handles DSI-Streamer
 						self.time_log = np.append(self.time_log,self.latest_packet_data_timestamp,1)
 						self.signal_log = self.signal_log[:,-100:]
 						self.time_log = self.time_log[:,-100:]
-					## Non-data packet handling
+					## Non-data packet handling, such as events
 					if packet_header[0] == 5:
 						(event_code, event_node) = struct.unpack('>II',self.latest_packets[index][12:20])
 						if len(self.latest_packets[index])>24:
@@ -131,4 +139,7 @@ if __name__ == "__main__":
 
 	# The script will automatically run the example_plot() method if not called from another script.
 	tcp = TCPParser('localhost',8844)
-	tcp.example_plot()
+	# tcp.example_plot()
+
+# TODO: alter output to give 8 signal_logs:
+	
