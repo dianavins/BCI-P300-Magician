@@ -1,0 +1,1 @@
+# simulates live data by applying sliding window to pre stored TCP numpy array
