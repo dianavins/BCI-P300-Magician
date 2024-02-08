@@ -25,8 +25,6 @@ import warnings
 import string
 import os
 
-print()
-
 from keras.layers import *
 from keras.models import Model
 from keras import backend as K
@@ -372,7 +370,7 @@ def scaled_tanh(z):
 #
 #
 
-def CNN2a_model(channels=8, filters=10):
+def CNN2a_model(channels=7, filters=10):
     model = Sequential([
         Conv1D(
             filters = filters,

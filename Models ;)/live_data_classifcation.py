@@ -143,3 +143,5 @@ if __name__ == "__main__":
 
 # TODO: alter output to give 8 signal_logs:
 	
+# TODO: function that inputs TCPParser output and outputs nupy array 7x78
+# TODO: make a timestamp interval of 80 before starting model loop
