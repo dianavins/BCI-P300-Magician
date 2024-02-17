@@ -543,3 +543,56 @@ table.set_fontsize(16)
 table.scale(2,2)
 
 plt.show()
+
+def train_main():
+    """Main function to orchestrate the workflow."""
+    # Define constants and settings
+    SUBJECT_SELECTED = "B"
+    CHANNELS = [10, 33, 48, 50, 52, 55, 59, 61]
+    SAMPLING_FREQUENCY = 240
+    WINDOW_DURATION = 650
+    BATCH_SIZE = 256
+    EPOCHS = 200
+    VALID_SPLIT = 0.05
+    SHUFFLE = 1  
+    
+    # Load data
+    SUBJECT_TRAIN_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/Subject_' + SUBJECT_SELECTED + '_Train.mat'
+    SUBJECT_TEST_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/Subject_' + SUBJECT_SELECTED + '_Test.mat'
+    data_train = load_data(SUBJECT_TRAIN_FILE_PATH)
+    data_test = load_data(SUBJECT_TEST_FILE_PATH)
+    
+    # Preprocess training data
+    signals_train = data_train['Signal']
+    flashing_train = data_train['Flashing']
+    stimulus_train = data_train['StimulusType']
+    signals_train, flashing_train, stimulus_train, SAMPLING_FREQUENCY = preprocess_signals(signals_train, flashing_train, stimulus_train, CHANNELS, SAMPLING_FREQUENCY)
+    train_features, train_labels = extract_windows(signals_train, flashing_train, stimulus_train, WINDOW_DURATION, SAMPLING_FREQUENCY)
+    train_features = normalize_features(train_features)
+    train_ratio = np.count_nonzero(train_labels == 0) / np.count_nonzero(train_labels == 1)
+    
+    # Preprocess testing data
+    signals_test = data_test['Signal']
+    flashing_test = data_test['Flashing']
+    stimulus_test = data_test['StimulusCode']
+    signals_test, flashing_test, stimulus_test, _ = preprocess_signals(signals_test, flashing_test, stimulus_test, CHANNELS, SAMPLING_FREQUENCY)
+    test_features, test_labels = extract_windows(signals_test, flashing_test, stimulus_test, WINDOW_DURATION, SAMPLING_FREQUENCY)
+    test_features = normalize_features(test_features)
+    test_weights = np.where(test_labels == 1, len(test_labels) / np.count_nonzero(test_labels == 1),
+                            len(test_labels) / np.count_nonzero(test_labels == 0))
+    
+    # Train the model
+    model = CNN2a_model(channels=len(CHANNELS))
+    history = train_model(model, train_features, train_labels, 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Trained_models/CNN2a/' + SUBJECT_SELECTED,
+                          train_ratio, BATCH_SIZE, EPOCHS, VALID_SPLIT, SHUFFLE)
+    
+    # Evaluate the model
+    predictions, score = evaluate_model(model, test_features, test_labels, test_weights)
+    print("Model performance on test set: Loss: {}, Accuracy: {}".format(score[0], score[1]))
+    
+    # Plot training history
+    plot_training_history(history)
+
+# Run the main function
+if __name__ == "__main__":
+    train_main()
