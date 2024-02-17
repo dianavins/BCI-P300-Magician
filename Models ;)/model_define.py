@@ -320,6 +320,7 @@ for pattern in range(len(test_features)):
 3.   ANN model definition (2 Conv1D layers, 2 dense layers);
 4.   Training of the network over weighted datasets;
 5.   CNN2a performance assessment;
+
 """
 
 # Randomizing function for bias and weights of the network
@@ -340,36 +341,6 @@ def scaled_tanh(z):
     return 1.7159 * K.tanh((2.0 / 3.0) * z)
 
 # Build the model
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# MOST IMPORTANT
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
 def CNN2a_model(channels=7, filters=10):
     model = Sequential([
         Conv1D(
@@ -459,33 +430,7 @@ best_model.load_weights(MODEL_LOCATIONS_FILE_PATH + "/model.h5")
 # Compile best model model
 best_model.compile(optimizer = 'adam', loss = 'mean_squared_error', metrics = ['accuracy'])
 
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
 
 # Load topoplot coordinates
 if not os.path.exists(CHANNEL_COORD):
