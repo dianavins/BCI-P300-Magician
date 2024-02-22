@@ -73,13 +73,6 @@ CHANNELS = [10, 33, 48, 50, 52, 55, 59, 61]
 5.   Reshape each window to be a 3D tensor with dimensions: **(N_SAMPLES, 78, 8)**;
 6.   Obtain **(noP300 / P300)** class ratio to balance out dataset during training;
 
-
-
-
-
-
-
-
 """
 
 if not os.path.exists(SUBJECT_TRAIN_FILE_PATH):
@@ -327,6 +320,7 @@ for pattern in range(len(test_features)):
 3.   ANN model definition (2 Conv1D layers, 2 dense layers);
 4.   Training of the network over weighted datasets;
 5.   CNN2a performance assessment;
+
 """
 
 # Randomizing function for bias and weights of the network
@@ -347,7 +341,7 @@ def scaled_tanh(z):
     return 1.7159 * K.tanh((2.0 / 3.0) * z)
 
 # Build the model
-def CNN2a_model(channels=8, filters=10):
+def CNN2a_model(channels=7, filters=10):
     model = Sequential([
         Conv1D(
             filters = filters,
@@ -435,6 +429,8 @@ best_model.load_weights(MODEL_LOCATIONS_FILE_PATH + "/model.h5")
 
 # Compile best model model
 best_model.compile(optimizer = 'adam', loss = 'mean_squared_error', metrics = ['accuracy'])
+
+
 
 # Load topoplot coordinates
 if not os.path.exists(CHANNEL_COORD):
