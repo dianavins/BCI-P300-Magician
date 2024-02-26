@@ -114,7 +114,7 @@ class SpellerGridApp:
                                 'Pictures/6hearts.png','Pictures/7hearts.png','Pictures/8hearts.png','Pictures/9hearts.png','Pictures/10hearts.png',
                                 'Pictures/jackhearts.png','Pictures/queenhearts.png','Pictures/kinghearts.png', 'Pictures/acediamonds.png',
                                 'Pictures/2diamonds.png', 'Pictures/3diamonds.png','Pictures/4diamonds.png','Pictures/5diamonds.png','Pictures/6diamonds.png',
-                                'Pictures/7diamond.png','Pictures/8diamonds.png','Pictures/9diamonds.png','Pictures/10diamonds.png','Pictures/jackdiamonds.png',
+                                'Pictures/7diamonds.png','Pictures/8diamonds.png','Pictures/9diamonds.png','Pictures/10diamonds.png','Pictures/jackdiamonds.png',
                                 'Pictures/queendiamonds.png','Pictures/kingdiamonds.png', 'Pictures/aceclubs.png', 'Pictures/2clubs.png', 
                                 'Pictures/3clubs.png','Pictures/4clubs.png','Pictures/5clubs.png','Pictures/6clubs.png','Pictures/7clubs.png',
                                 'Pictures/8clubs.png','Pictures/9clubs.png','Pictures/10clubs.png','Pictures/jackclubs.png',
