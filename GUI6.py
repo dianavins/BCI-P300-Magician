@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 
 
 class SpellerGridApp:
-    def __init__(self, root, images, img_size=(300, 550), transition_duration=1500, background_color='black'):
+    def __init__(self, root, images, img_size=(300, 550), transition_duration=1200, background_color='black'):
         """
         root: Master Window
         King_of_Hearts: file path of the king of hearts card.
@@ -49,7 +49,8 @@ class SpellerGridApp:
         #Below is a list of the label which is to be used once the labels are initialized in the startThreadOne function
         #The reason why we don't just initialize now is because we change the labels a lot between here and when we initialize them again
         self.labelList = []
-        
+        #Below is a list of the images in the order that they appeared
+        self.shownCardsOrder = []
         #Below was made to keep track of the rows and columns
         self.grid_row = []
         self.grid_column = []
@@ -84,6 +85,7 @@ class SpellerGridApp:
 
     def chooseRandomImage(self):
         value = random.randint(0,len(self.listOfImages)-1)
+        self.shownCardsOrder.append(self.listOfImages[value])
         self.img1 = ImageTk.PhotoImage(Image.open(self.listOfImages[value]).resize(self.img_size))
         self.img1.image = self.img1
         return self.img1
@@ -94,7 +96,7 @@ class SpellerGridApp:
         self.grid_frame.pack_forget()
         self.card_label = tk.Frame(self.root)
         self.card_label.pack()
-        Card = [[tk.Button(self.card_label, bg="white", fg="black", text='', width=18, height=6, font=('Helvetica', 50),command=lambda i=i, j=j: self.cell_clicked(i, j))
+        Card = [[tk.Button(self.card_label, bg="black", fg="white", text='', width=18, height=6, font=('Helvetica', 50),command=lambda i=i, j=j: self.cell_clicked(i, j))
                          for j in range(2)] for i in range(2)]
         for i in range(2):
             for j in range(2):
@@ -127,7 +129,7 @@ class SpellerGridApp:
                                 'Pictures/6hearts.png','Pictures/7hearts.png','Pictures/8hearts.png','Pictures/9hearts.png','Pictures/10hearts.png',
                                 'Pictures/jackhearts.png','Pictures/queenhearts.png','Pictures/kinghearts.png']
         elif(row == 1 and col == 0):
-            self.listOfImages = ['Pictures/acespades.png', 'Pictures/jackspades.png','Pictures/queenspades.png','Pictures/kingspades.png'
+            self.listOfImages = ['Pictures/acespades.png', 'Pictures/jackspades.png','Pictures/queenspades.png','Pictures/kingspades.png',
                                 'Pictures/acediamonds.png','Pictures/jackdiamonds.png','Pictures/queendiamonds.png','Pictures/kingdiamonds.png']
         elif(row == 1 and col == 1):
             self.listOfImages = ['Pictures/2clubs.png', 
@@ -146,7 +148,7 @@ class SpellerGridApp:
         self.card_label.pack()
         Card = tk.Label(self.card_label,
                         text="Here is your card",
-                        bg="white", fg="black",
+                        bg="black", fg="white",
                         width=int(self.window_width),
                         height=int(self.window_height), font=('Helvetica', 75))
         Card.pack()
@@ -170,7 +172,7 @@ class SpellerGridApp:
         self.single.pack(expand=True, fill='both')
         # Creates a Label that will show the subject the playing card
         self.card = tk.Label(self.single,
-                             bg='white',
+                             bg='black',
                              width=self.window_width, height=self.window_height, font=('Helvetica', 190), bd=0)
         # Defines what Playing card is shown (Randomly)
         self.finalImage = self.chooseRandomImage()
@@ -192,7 +194,7 @@ class SpellerGridApp:
         self.card_label_2.pack()
         Card = tk.Label(self.card_label_2,
                         text="Now Find your Card...",
-                        bg="white", fg="black",
+                        bg="black", fg="white",
                         width=int(self.window_width),
                         height=int(self.window_height), font=('Helvetica', 75))
         Card.pack()
@@ -223,10 +225,10 @@ class SpellerGridApp:
         # where we will join the two threads for the end of the gui
         for row in range(len(self.Label)):
             for col in range(len(self.Label[row])):
-                self.Label[row][col].configure(fg='black', width=2,
+                self.Label[row][col].configure(fg='white', width=2,
                                                height=2, bd=0)
         # Declaring all cells
-        self.Label[0][0].configure(bg="white", image=self.chooseRandomImage(), width=self.img_size[0], height=self.img_size[1])
+        self.Label[0][0].configure(bg="black", image=self.chooseRandomImage(), width=self.img_size[0], height=self.img_size[1])
         #Here is where the efficiency from making a tuple list comes in
         
         for i in range(1, len(self.grid)):
@@ -252,8 +254,8 @@ class SpellerGridApp:
     def checkForInput(self):
         # !This needs to be changed once we receive input but for now we can "cheese" it
         #*The 5 seen below can be changed and the number that is put in is how many times it loops before stopping
-        print(self.count)
-        if (self.count == len(self.labelList)*1):
+        #print(self.count)
+        if (self.count == len(self.labelList)*9):
             self.root.after(0, self.finishPart1)
         else:
             self.root.after(self.transition_duration, self.checkForInput)
@@ -280,7 +282,7 @@ class SpellerGridApp:
         self.card_label.pack()
         Card = tk.Label(self.card_label,
                         text="Here is your card",
-                        bg="white", fg="black",
+                        bg="black", fg="white",
                         width=int(self.window_width),
                         height=int(self.window_height), font=('Helvetica', 75))
         Card.pack()
@@ -295,7 +297,7 @@ class SpellerGridApp:
         self.single.pack(expand=True, fill='both')
         # Creates a Label that will show the subject the playing card
         self.card = tk.Label(self.single,
-                             bg='white',
+                             bg='black',
                              width=self.window_width, height=self.window_height, font=('Helvetica', 190), bd=0)
         # Defines what Playing card is shown (Randomly)
         
@@ -303,6 +305,9 @@ class SpellerGridApp:
         
         # Special instructions to show the Image
         self.card.pack(fill='both', expand=True)
+        for i in range(len(self.shownCardsOrder)):
+            self.shownCardsOrder[i] = self.shownCardsOrder[i][9:len(self.shownCardsOrder[i])-4]
+        print(self.shownCardsOrder)
 
 
     def circleAssist(self, index):
@@ -310,11 +315,12 @@ class SpellerGridApp:
         self.labelList[index].configure(bg="black", fg="black", image=self.black)
         # Turns on the next image
         if (index == len(self.labelList) - 1):
-            self.labelList[0].configure(bg="white", fg="red", image=self.chooseRandomImage(), width=self.img_size[0],
+            
+            self.labelList[0].configure(bg="black", fg="red", image=self.chooseRandomImage(), width=self.img_size[0],
                         height=self.img_size[1])
             self.listIndex = 0
         else:
-            self.labelList[index+1].configure(bg="white", fg="red", image=self.chooseRandomImage(), width=self.img_size[0],
+            self.labelList[index+1].configure(bg="black", fg="red", image=self.chooseRandomImage(), width=self.img_size[0],
                         height=self.img_size[1])
             self.listIndex += 1
         self.count += 1
@@ -340,5 +346,5 @@ placeholder = ['Pictures/acehearts.png']
 # Create and run the SpellerGridApp
 # If you want to replace the images I've made it possible, and it should be able to resize the images using a parameter
 # , although it's untested and highly unlikely to work...
-speller_grid_app = SpellerGridApp(window, images=placeholder, background_color='white', img_size=(300,525))
+speller_grid_app = SpellerGridApp(window, images=placeholder, background_color='black', img_size=(300,525))
 speller_grid_app.run()
