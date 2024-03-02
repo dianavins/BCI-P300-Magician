@@ -379,7 +379,9 @@ class SpellerGridApp:
         print(self.shownCardsOrder)
         print()
     
-    
+    def getCardsOrder(self):
+        return self.shownCardsOrder
+ 
 
 
     def circleAssist(self, index):
