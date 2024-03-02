@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import babypandas as bpd
 import numpy as np
 import os
 
@@ -14,17 +15,28 @@ import os
 def read_csv_files(folder_path):
     dfs = []
     for filename in os.listdir(folder_path):
-        if filename.endswith('.csv'):
+        if filename.endswith('test_filtered.csv'):
             file_path = os.path.join(folder_path, filename)
             # Read the CSV file into a DataFrame, ignoring lines starting with '#'
             df = pd.read_csv(file_path, comment='#')
             dfs.append(df)
+        
     # Concatenate DataFrames
     merged_df = pd.concat(dfs, ignore_index=True)
     return merged_df
 
-df = read_csv_files('C:\\Users\\Vu\BCI-P300-Magician\\DataResults')    #Change your name based on who it is that is running it
+df = read_csv_files('C:\\Users\\Drago\BCI-P300-Magician\\DataResults')    #Change your name based on who it is that is running it
+
+filtered = df['Comments'] == ' changecard '
+
+filtered_df = filtered[filtered == True]
+
+temp_df = (pd.DataFrame({'New_Trigger': filtered})).astype(int)
+
+df['Trigger'] = temp_df
+
 print(df)
+
 
 
 # TODO: use functions defined in model_define.py to train

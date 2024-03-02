@@ -56,8 +56,8 @@ if SUBJECT_SELECTED not in subject_names:
 
 # Google drive data paths
 MODEL_LOCATIONS_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Trained_models/CNN2a/' + SUBJECT_SELECTED
-SUBJECT_TRAIN_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/Subject_' + SUBJECT_SELECTED + '_Train.csv'
-SUBJECT_TEST_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/Subject_' + SUBJECT_SELECTED + '_Test.csv'
+SUBJECT_TRAIN_FILE_PATH = 'C:\Users\Drago\BCI-P300-Magician\DataResults_Train.csv'
+SUBJECT_TEST_FILE_PATH = 'C:\Users\Drago\BCI-P300-Magician\DataResults_Test.csv'
 CHANNEL_LOCATIONS_FILE_PATH = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/channels.csv'
 CHANNEL_COORD = 'drive/My Drive/AY1920_DT_P300_SPELLER_03/Dataset/coordinates.csv'
 

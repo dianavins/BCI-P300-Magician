@@ -40,7 +40,7 @@ class TCPParser:
 		self.latest_packets = []
 		self.latest_packet_headers = []
 		self.latest_packet_data = np.zeros((1,1))
-		self.signal_log = np.zeros((1,20))
+		self.signal_log = [np.zeros((1,20)), for i in range(8)] # Create a list of 8 logs
 		self.time_log = np.zeros((1,20))
 		self.montage = []
 		self.fsample = 0
