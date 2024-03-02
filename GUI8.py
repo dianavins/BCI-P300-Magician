@@ -377,10 +377,11 @@ class SpellerGridApp:
         for i in range(len(self.shownCardsOrder)):
             self.shownCardsOrder[i] = self.shownCardsOrder[i][9:len(self.shownCardsOrder[i])-4]
         print(self.shownCardsOrder)
-
         print()
     
-
+    def getCardsOrder(self):
+        return self.shownCardsOrder
+ 
 
 
     def circleAssist(self, index):

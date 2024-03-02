@@ -37,6 +37,8 @@ df['Trigger'] = temp_df
 
 print(df)
 
+def temp():
+    print('Hello World')
 
 
 # TODO: use functions defined in model_define.py to train
